@@ -19,17 +19,20 @@ function view (state, emit) {
         Agregar entrada
       </button>
 
-      <table class="ba">
-        <tr>
-          <td>Título</td>
-          <td>Autor</td>
-          <td>Año</td>
-          <td>ISBN</td>
-          <td>Género</td>
-          <td>Existencias</td>
-          <td>Precio</td>
-        </tr>
-        ${rows(state, emit)}
+      <table class="collapse ba br2 b--black-10 pv2 ph3">
+        <tbody>
+          <tr class="striped--near-white">
+            <th class="pv2 ph3">Título</th>
+            <th class="pv2 ph3">Autor</th>
+            <th class="pv2 ph3">Año</th>
+            <th class="pv2 ph3">ISBN</th>
+            <th class="pv2 ph3">Género</th>
+            <th class="pv2 ph3">Existencias</th>
+            <th class="pv2 ph3">Precio (Q.)</th>
+            <th class="pv2 ph3"></th>
+          </tr>
+          ${rows(state, emit)}
+        </tbody>
       </table>
     </body>
   `

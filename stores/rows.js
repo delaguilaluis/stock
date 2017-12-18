@@ -29,6 +29,8 @@ function store (state, emitter) {
 
       if (foundIndex !== -1) {
         state.rows[foundIndex] = newRow
+
+        emitter.emit(state.events.RENDER)
       }
     })
   })
