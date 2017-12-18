@@ -37,8 +37,7 @@ function template (state, emit) {
           onkeypress=${handleMaxDigits(13)}/>
       </td>
       <td>
-        <input class="bg-transparent pv2 ph3" id="genre${row.id}"
-          maxlength="70"
+        <input class="bg-transparent pv2 ph3" id="genre${row.id}" list="genres"
           value="${str(row['genre'])}" onchange=${handleChange('genre', row)}/>
       </td>
       <td>

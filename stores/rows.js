@@ -3,8 +3,20 @@
 module.exports = store
 
 function store (state, emitter) {
-  state.rows = []
   var id = 0
+  state.rows = []
+  state.genres = [
+    'Arte y fotografía',
+    'Biografías y memorias',
+    'Libros para niños',
+    'Cocina, comida y vino',
+    'Historia',
+    'Literatura y ficción',
+    'Misterio y suspenso',
+    'Romance',
+    'Ciencia ficción y fantasía',
+    'Jóvenes'
+  ]
 
   emitter.on('DOMContentLoaded', function () {
     emitter.on('rows:add', function () {

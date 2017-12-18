@@ -1,5 +1,6 @@
 var html = require('choo/html')
 var rows = require('../templates/rows')
+var datalist = require('../templates/datalist')
 
 var TITLE = '🚂🚋🚋'
 
@@ -34,6 +35,8 @@ function view (state, emit) {
           ${rows(state, emit)}
         </tbody>
       </table>
+
+      ${datalist('genres', state.genres)}
     </body>
   `
 
