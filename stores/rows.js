@@ -8,14 +8,15 @@ function store (state, emitter) {
   state.genres = [
     'Arte y fotografía',
     'Biografías y memorias',
-    'Libros para niños',
+    'Ciencia ficción y fantasía',
     'Cocina, comida y vino',
     'Historia',
+    'Jóvenes',
+    'Libros para niños',
     'Literatura y ficción',
     'Misterio y suspenso',
-    'Romance',
-    'Ciencia ficción y fantasía',
-    'Jóvenes'
+    'Otro',
+    'Romance'
   ]
 
   emitter.on('DOMContentLoaded', function () {

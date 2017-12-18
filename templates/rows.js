@@ -37,18 +37,20 @@ function template (state, emit) {
           onkeypress=${handleMaxDigits(13)}/>
       </td>
       <td>
-        <input class="bg-transparent pv2 ph3" id="genre${row.id}" list="genres"
-          value="${str(row['genre'])}" onchange=${handleChange('genre', row)}/>
+        <input class="bg-transparent pv2 ph3" id="genre${row.id}"
+          list="genres" value="${str(row['genre'])}"
+          onchange=${handleListChange('genres', 'genre', row)}/>
       </td>
       <td>
         <input class="bg-transparent pv2 ph3" id="stock${row.id}"
-          type="number"
-          value="${str(row['stock'])}" onchange=${handleChange('stock', row)}/>
+          type="number" value="${str(row['stock'])}"
+          onchange=${handleNumberChange('stock', row)}/>
       </td>
       <td>
         <input class="bg-transparent pv2 ph3" id="price${row.id}"
           type="number" placeholder="0.00" step="0.01" min="0.00"
-          value="${str(row['price'])}" onchange=${handleChange('price', row)}/>
+          value="${str(row['price'])}"
+          onchange=${handleNumberChange('price', row)}/>
       </td>
       <td>
         <input class="bg-transparent red pv2 ph3" id="delete${row.id}"
@@ -58,18 +60,40 @@ function template (state, emit) {
   })
 
   function str (x) {
-    return x || ''
+    return x === undefined ? '' : x
+  }
+
+  function emitNewRow (columnName, row, value) {
+    emit('input', extend(row, {
+      [columnName]: value
+    }))
   }
 
   function handleChange (columnName, row) {
     return function (event) {
       var value = document.getElementById(`${columnName}${row.id}`).value
+      emitNewRow(columnName, row, value)
+    }
+  }
 
-      var newRow = extend(row, {
-        [columnName]: coerce(columnName, value)
-      })
+  function handleNumberChange (columnName, row) {
+    return function (event) {
+      var value = document.getElementById(`${columnName}${row.id}`).value
+      var type = types[columnName]
+      emitNewRow(columnName, row, coerce(type, value))
+    }
+  }
 
-      emit('input', newRow)
+  function handleListChange (list, columnName, row) {
+    return function (event) {
+      var value = document.getElementById(`${columnName}${row.id}`).value
+
+      // Don't allow values that are not present on the drop down list
+      if (state[list].indexOf(value) === -1) {
+        emitNewRow(columnName, row, undefined)
+      } else {
+        emitNewRow(columnName, row, value)
+      }
     }
   }
 
@@ -83,9 +107,7 @@ function template (state, emit) {
     }
   }
 
-  function coerce (columnName, value) {
-    var type = types[columnName]
-
+  function coerce (type, value) {
     switch (type) {
       case 'integer':
         return Math.round(parseFloat(value))
