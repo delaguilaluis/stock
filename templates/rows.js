@@ -14,46 +14,46 @@ function template (state, emit) {
   return state.rows.map(function (row) {
     return html`<tr class="striped--near-white">
       <td>
-        <input class="bg-transparent pv2 ph3" id="title${row.id}"
+        <input class="bg-transparent pa1" id="title${row.id}"
           maxlength="140"
           value="${str(row['title'])}" onchange=${handleChange('title', row)}/>
       </td>
       <td>
-        <input class="bg-transparent pv2 ph3" id="author${row.id}"
+        <input class="bg-transparent pa1" id="author${row.id}"
           maxlength="140"
           value="${str(row['author'])}"
           onchange=${handleChange('author', row)}/>
       </td>
       <td>
-        <input class="bg-transparent pv2 ph3" id="year${row.id}"
+        <input class="bg-transparent pa1" id="year${row.id}"
           type="number" min="0"
           value="${str(row['year'])}" onchange=${handleChange('year', row)}
           onkeypress=${handleMaxDigits(4)}/>
       </td>
       <td>
-        <input class="bg-transparent pv2 ph3" id="ISBN${row.id}"
+        <input class="bg-transparent pa1" id="ISBN${row.id}"
           type="number" min="0"
           value="${str(row['ISBN'])}" onchange=${handleChange('ISBN', row)}
           onkeypress=${handleMaxDigits(13)}/>
       </td>
       <td>
-        <input class="bg-transparent pv2 ph3" id="genre${row.id}"
+        <input class="bg-transparent pa1" id="genre${row.id}"
           list="genres" value="${str(row['genre'])}"
           onchange=${handleListChange('genres', 'genre', row)}/>
       </td>
       <td>
-        <input class="bg-transparent pv2 ph3" id="stock${row.id}"
+        <input class="bg-transparent pa1" id="stock${row.id}"
           type="number" value="${str(row['stock'])}"
           onchange=${handleNumberChange('stock', row)}/>
       </td>
       <td>
-        <input class="bg-transparent pv2 ph3" id="price${row.id}"
+        <input class="bg-transparent pa1" id="price${row.id}"
           type="number" placeholder="0.00" step="0.01" min="0.00"
           value="${str(row['price'])}"
           onchange=${handleNumberChange('price', row)}/>
       </td>
       <td>
-        <input class="bg-transparent red pv2 ph3" id="delete${row.id}"
+        <input class="bg-transparent red pv1 ph2" id="delete${row.id}"
           type="button" value="✖" onclick=${handleDeleteClick}/>
       </td>
     </tr>`
