@@ -1,7 +1,9 @@
 'use strict'
 
+require('isbn')
 var html = require('choo/html')
 var extend = require('extend')
+var ISBN = window.ISBN
 
 var types = {
   stock: 'integer',
@@ -14,9 +16,10 @@ function template (state, emit) {
   return state.rows.map(function (row) {
     return html`<tr class="striped--near-white">
       <td>
-        <input class="bg-transparent pa1" id="title${row.id}"
-          maxlength="140"
-          value="${str(row['title'])}" onchange=${handleChange('title', row)}/>
+        <input id="ISBN${row.id}" type="number" min="0"
+          class="bg-transparent pa1 ${row.validISBN === false ? 'red' : ''}"
+          value="${str(row['ISBN'])}" onchange=${handleISBNChange(row)}
+          onkeypress=${handleMaxDigits(13)}/>
       </td>
       <td>
         <input class="bg-transparent pa1" id="author${row.id}"
@@ -31,10 +34,9 @@ function template (state, emit) {
           onkeypress=${handleMaxDigits(4)}/>
       </td>
       <td>
-        <input class="bg-transparent pa1" id="ISBN${row.id}"
-          type="number" min="0"
-          value="${str(row['ISBN'])}" onchange=${handleChange('ISBN', row)}
-          onkeypress=${handleMaxDigits(13)}/>
+        <input class="bg-transparent pa1" id="title${row.id}"
+          maxlength="140"
+          value="${str(row['title'])}" onchange=${handleChange('title', row)}/>
       </td>
       <td>
         <input class="bg-transparent pa1" id="genre${row.id}"
@@ -104,6 +106,21 @@ function template (state, emit) {
 
       var value = document.getElementById(e.target.id).value
       if (String(value).length >= max) { e.preventDefault() }
+    }
+  }
+
+  function handleISBNChange (row) {
+    return function (e) {
+      var value = document.getElementById(e.target.id).value
+      var result = ISBN.parse(value)
+
+      if (!result) {
+        row.validISBN = false
+      } else {
+        row.validISBN = result.isIsbn13() || result.isIsbn10()
+      }
+
+      handleChange('ISBN', row)(e)
     }
   }
 

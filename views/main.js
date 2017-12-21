@@ -23,14 +23,14 @@ function view (state, emit) {
       <table class="collapse ba br2 b--black-10 pv2 ph3 ma2">
         <tbody>
           <tr class="striped--near-white">
-            <th class="pv2 ph1 tl f6 fw6 ttu">Título</th>
-            <th class="pv2 ph1 tl f6 fw6 ttu">Autor</th>
-            <th class="pv2 ph1 tl f6 fw6 ttu">Año</th>
-            <th class="pv2 ph1 tl f6 fw6 ttu">ISBN</th>
-            <th class="pv2 ph1 tl f6 fw6 ttu">Género</th>
-            <th class="pv2 ph1 tl f6 fw6 ttu">Existencias</th>
-            <th class="pv2 ph1 tl f6 fw6 ttu">Precio (Q.)</th>
-            <th class="pv2 ph1 tl f6 fw6 ttu"></th>
+          <th class="pv2 ph1 tl f6 fw6 ttu">ISBN</th>
+          <th class="pv2 ph1 tl f6 fw6 ttu">Autor</th>
+          <th class="pv2 ph1 tl f6 fw6 ttu">Año</th>
+          <th class="pv2 ph1 tl f6 fw6 ttu">Título</th>
+          <th class="pv2 ph1 tl f6 fw6 ttu">Género</th>
+          <th class="pv2 ph1 tl f6 fw6 ttu">Existencias</th>
+          <th class="pv2 ph1 tl f6 fw6 ttu">Precio (Q.)</th>
+          <th class="pv2 ph1 tl f6 fw6 ttu"></th>
           </tr>
           ${rows(state, emit)}
         </tbody>
