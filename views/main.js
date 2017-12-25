@@ -29,7 +29,6 @@ function view (state, emit) {
           <th class="pv2 ph1 tl f6 fw6 ttu">Título</th>
           <th class="pv2 ph1 tl f6 fw6 ttu">Género</th>
           <th class="pv2 ph1 tl f6 fw6 ttu">Existencias</th>
-          <th class="pv2 ph1 tl f6 fw6 ttu">Precio (Q.)</th>
           <th class="pv2 ph1 tl f6 fw6 ttu"></th>
           </tr>
           ${rows(state, emit)}

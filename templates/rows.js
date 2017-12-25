@@ -6,8 +6,7 @@ var extend = require('extend')
 var ISBN = window.ISBN
 
 var types = {
-  stock: 'integer',
-  price: 'decimal'
+  stock: 'integer'
 }
 
 module.exports = template
@@ -47,12 +46,6 @@ function template (state, emit) {
         <input class="bg-transparent pa1" id="stock${row.id}"
           type="number" value="${str(row['stock'])}"
           onchange=${handleNumberChange('stock', row)}/>
-      </td>
-      <td>
-        <input class="bg-transparent pa1" id="price${row.id}"
-          type="number" placeholder="0.00" step="0.01" min="0.00"
-          value="${str(row['price'])}"
-          onchange=${handleNumberChange('price', row)}/>
       </td>
       <td>
         <input class="bg-transparent red pv1 ph2" id="delete${row.id}"
