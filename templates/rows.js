@@ -66,14 +66,14 @@ function template (state, emit) {
 
   function handleChange (columnName, row) {
     return function (event) {
-      var value = document.getElementById(`${columnName}${row.id}`).value
+      var value = event.target.value
       emitNewRow(columnName, row, value)
     }
   }
 
   function handleNumberChange (columnName, row) {
     return function (event) {
-      var value = document.getElementById(`${columnName}${row.id}`).value
+      var value = event.target.value
       var type = types[columnName]
       emitNewRow(columnName, row, coerce(type, value))
     }
@@ -81,7 +81,7 @@ function template (state, emit) {
 
   function handleListChange (list, columnName, row) {
     return function (event) {
-      var value = document.getElementById(`${columnName}${row.id}`).value
+      var value = event.target.value
 
       // Don't allow values that are not present on the drop down list
       if (state[list].indexOf(value) === -1) {
@@ -93,18 +93,18 @@ function template (state, emit) {
   }
 
   function handleMaxDigits (max) {
-    return function (e) {
+    return function (event) {
       // Only allow digit inputs
-      if (e.code.indexOf('Digit') === -1) { e.preventDefault() }
+      if (event.code.indexOf('Digit') === -1) { event.preventDefault() }
 
-      var value = document.getElementById(e.target.id).value
-      if (String(value).length >= max) { e.preventDefault() }
+      var value = event.target.value
+      if (String(value).length >= max) { event.preventDefault() }
     }
   }
 
   function handleISBNChange (row) {
-    return function (e) {
-      var value = document.getElementById(e.target.id).value
+    return function (event) {
+      var value = event.target.value
       var result = ISBN.parse(value)
 
       if (!result) {
@@ -113,7 +113,7 @@ function template (state, emit) {
         row.validISBN = result.isIsbn13() || result.isIsbn10()
       }
 
-      handleChange('ISBN', row)(e)
+      handleChange('ISBN', row)(event)
     }
   }
 
