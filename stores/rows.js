@@ -1,9 +1,10 @@
 'use strict'
 
+const db = require('../lib/db')
+
 module.exports = store
 
 function store (state, emitter) {
-  var id = 0
   state.rows = []
   state.genres = [
     'Arte y fotografía',
@@ -19,10 +20,12 @@ function store (state, emitter) {
     'Romance'
   ]
 
+  db.books.toArray()
+    .then((books) => emitter.emit('rows:retrieve', books))
+
   emitter.on('DOMContentLoaded', function () {
     emitter.on('rows:add', function () {
-      state.rows.push({ id: id })
-      id += 1
+      state.rows.push({ id: Date.now() })
 
       emitter.emit(state.events.RENDER)
     })
@@ -32,6 +35,9 @@ function store (state, emitter) {
 
       if (foundIndex !== -1) {
         state.rows.splice(foundIndex, 1)
+
+        // @TODO handle errors
+        db.books.delete(id)
 
         emitter.emit(state.events.RENDER)
       }
@@ -44,7 +50,16 @@ function store (state, emitter) {
         state.rows[foundIndex] = newRow
 
         emitter.emit(state.events.RENDER)
+
+        // @TODO Handle errors
+        db.books.put(newRow)
       }
+    })
+
+    emitter.on('rows:retrieve', function (rows) {
+      state.rows = rows
+
+      emitter.emit(state.events.RENDER)
     })
   })
 }

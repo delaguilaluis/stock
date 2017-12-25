@@ -15,9 +15,9 @@ function template (state, emit) {
   return state.rows.map(function (row) {
     return html`<tr class="striped--near-white">
       <td>
-        <input id="ISBN${row.id}" type="number" min="0"
+        <input id="isbn${row.id}" type="number" min="0"
           class="bg-transparent pa1 ${row.validISBN === false ? 'red' : ''}"
-          value="${str(row['ISBN'])}" onchange=${handleISBNChange(row)}
+          value="${str(row['isbn'])}" onchange=${handleISBNChange(row)}
           onkeypress=${handleMaxDigits(13)}/>
       </td>
       <td>
@@ -113,7 +113,7 @@ function template (state, emit) {
         row.validISBN = result.isIsbn13() || result.isIsbn10()
       }
 
-      handleChange('ISBN', row)(event)
+      handleChange('isbn', row)(event)
     }
   }
 
