@@ -26,13 +26,12 @@ function view (state, emit) {
         </a>
       </nav>
 
-
-      <button class="f5 dim br-pill pv2 ph1 mb2 mh2 dib white bg-hot-pink bn pointer"
+      <button class="f4 dim b pv1 ph3 mb2 mh4 dib green b--light-silver pointer"
         onclick=${handleClick}>
-        Agregar entrada
+        +
       </button>
 
-      <table class="collapse ba br2 b--black-10 pv2 ph3 ma2">
+      <table class="collapse ba br2 b--black-10 pv2 ph3 mv2 mh4">
         <tbody>
           <tr class="striped--near-white">
           <th class="pv2 ph1 tl f6 fw6 ttu">ISBN</th>

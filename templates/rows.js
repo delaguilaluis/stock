@@ -48,8 +48,8 @@ function template (state, emit) {
           onchange=${handleNumberChange('stock', row)}/>
       </td>
       <td>
-        <input class="bg-transparent red pv1 ph2" id="delete${row.id}"
-          type="button" value="✖" onclick=${handleDeleteClick}/>
+        <input class="dim bg-transparent red pv1 ph2" id="delete${row.id}"
+          type="button" value="✘" onclick=${handleDeleteClick}/>
       </td>
     </tr>`
   })

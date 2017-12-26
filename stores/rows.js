@@ -25,7 +25,7 @@ function store (state, emitter) {
 
   emitter.on('DOMContentLoaded', function () {
     emitter.on('rows:add', function () {
-      state.rows.push({ id: Date.now() })
+      state.rows.unshift({ id: Date.now() })
 
       emitter.emit(state.events.RENDER)
     })
