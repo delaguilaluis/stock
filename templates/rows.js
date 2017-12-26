@@ -5,10 +5,6 @@ var html = require('choo/html')
 var extend = require('extend')
 var ISBN = window.ISBN
 
-var types = {
-  stock: 'integer'
-}
-
 module.exports = template
 
 function template (state, emit) {
@@ -43,9 +39,8 @@ function template (state, emit) {
           onchange=${handleListChange('genres', 'genre', row)}/>
       </td>
       <td>
-        <input class="bg-transparent pa1" id="stock${row.id}"
-          type="number" value="${str(row['stock'])}"
-          onchange=${handleNumberChange('stock', row)}/>
+        <input class="bg-transparent pa1" id="stock${row.id}" readonly
+          type="number" value="${str(row['stock'])}"/>
       </td>
       <td>
         <input class="dim bg-transparent red pv1 ph2" id="delete${row.id}"
@@ -68,14 +63,6 @@ function template (state, emit) {
     return function (event) {
       var value = event.target.value
       emitNewRow(columnName, row, value)
-    }
-  }
-
-  function handleNumberChange (columnName, row) {
-    return function (event) {
-      var value = event.target.value
-      var type = types[columnName]
-      emitNewRow(columnName, row, coerce(type, value))
     }
   }
 
@@ -115,17 +102,6 @@ function template (state, emit) {
 
       handleChange('isbn', row)(event)
     }
-  }
-
-  function coerce (type, value) {
-    switch (type) {
-      case 'integer':
-        return Math.round(parseFloat(value))
-      case 'decimal':
-        return parseFloat(value).toFixed(2)
-    }
-
-    return value
   }
 
   function handleDeleteClick (e) {
