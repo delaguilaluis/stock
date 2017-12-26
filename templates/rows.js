@@ -130,6 +130,15 @@ function template (state, emit) {
 
   function handleDeleteClick (e) {
     // Get row ID (number) from target's ID (string)
-    emit('rows:delete', +e.target.id.replace('delete', ''))
+    var id = +e.target.id.replace('delete', '')
+    var row = state.rows.find(function (row) { return row.id === id })
+
+    // New rows just have one key (id)
+    var hasChanged = Object.keys(row).length > 1
+    var shouldDelete = !hasChanged || window.confirm('¿Eliminar este libro?')
+
+    if (shouldDelete) {
+      emit('rows:delete', id)
+    }
   }
 }
