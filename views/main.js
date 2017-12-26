@@ -2,7 +2,7 @@ var html = require('choo/html')
 var rows = require('../templates/rows')
 var datalist = require('../templates/datalist')
 
-var TITLE = '🚂🚋🚋'
+var TITLE = 'Inventario'
 
 module.exports = view
 
@@ -11,9 +11,21 @@ function view (state, emit) {
 
   return html`
     <body class="sans-serif">
-      <h1 class="f2 ma2">
-        Inventario
-      </h1>
+      <nav class="pa3 pa4-ns">
+        <a class="link dim black b f6 f5-ns dib mr3"
+          href="#" title="Inicio">
+          Inventario
+        </a>
+        <a class="link dim gray f6 f5-ns dib mr3"
+          href="#" title="Registrar entradas">
+          Registrar entradas
+        </a>
+        <a class="link dim gray f6 f5-ns dib mr3"
+          href="#" title="Registrar salidas">
+          Registrar salidas
+        </a>
+      </nav>
+
 
       <button class="f5 dim br-pill pv2 ph1 mb2 mh2 dib white bg-hot-pink bn pointer"
         onclick=${handleClick}>
