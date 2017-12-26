@@ -54,7 +54,7 @@ function template (state, emit) {
   }
 
   function emitNewRow (columnName, row, value) {
-    emit('input', extend(row, {
+    emit('rows:update', extend(row, {
       [columnName]: value
     }))
   }

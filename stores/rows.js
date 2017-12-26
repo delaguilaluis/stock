@@ -43,7 +43,7 @@ function store (state, emitter) {
       }
     })
 
-    emitter.on('input', function (newRow) {
+    emitter.on('rows:update', function (newRow) {
       var foundIndex = findRow(state.rows, newRow.id)
 
       if (foundIndex !== -1) {
