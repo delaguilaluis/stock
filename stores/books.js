@@ -5,7 +5,7 @@ const db = require('../lib/db')
 module.exports = store
 
 function store (state, emitter) {
-  state.rows = []
+  state.books = []
   state.genres = [
     'Arte y fotografía',
     'Biografías y memorias',
@@ -21,20 +21,20 @@ function store (state, emitter) {
   ]
 
   db.books.toArray()
-    .then((books) => emitter.emit('rows:retrieve', books))
+    .then((books) => emitter.emit('books:retrieve', books))
 
   emitter.on('DOMContentLoaded', function () {
-    emitter.on('rows:add', function () {
-      state.rows.unshift({ id: Date.now() })
+    emitter.on('books:add', function () {
+      state.books.unshift({ id: Date.now() })
 
       emitter.emit(state.events.RENDER)
     })
 
-    emitter.on('rows:delete', function (id) {
-      var foundIndex = findRow(state.rows, id)
+    emitter.on('books:delete', function (id) {
+      var foundIndex = findRow(state.books, id)
 
       if (foundIndex !== -1) {
-        state.rows.splice(foundIndex, 1)
+        state.books.splice(foundIndex, 1)
 
         // @TODO handle errors
         db.books.delete(id)
@@ -43,11 +43,11 @@ function store (state, emitter) {
       }
     })
 
-    emitter.on('rows:update', function (newRow) {
-      var foundIndex = findRow(state.rows, newRow.id)
+    emitter.on('books:update', function (newRow) {
+      var foundIndex = findRow(state.books, newRow.id)
 
       if (foundIndex !== -1) {
-        state.rows[foundIndex] = newRow
+        state.books[foundIndex] = newRow
 
         emitter.emit(state.events.RENDER)
 
@@ -56,14 +56,14 @@ function store (state, emitter) {
       }
     })
 
-    emitter.on('rows:retrieve', function (rows) {
-      state.rows = rows
+    emitter.on('books:retrieve', function (books) {
+      state.books = books
 
       emitter.emit(state.events.RENDER)
     })
   })
 }
 
-function findRow (rows, id) {
-  return rows.findIndex(function (row) { return row.id === id })
+function findRow (books, id) {
+  return books.findIndex(function (book) { return book.id === id })
 }

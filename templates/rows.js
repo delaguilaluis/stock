@@ -8,42 +8,42 @@ var ISBN = window.ISBN
 module.exports = template
 
 function template (state, emit) {
-  return state.rows.map(function (row) {
+  return state.books.map(function (book) {
     return html`<tr class="striped--near-white">
       <td>
-        <input id="isbn${row.id}" type="number" min="0"
-          class="bg-transparent pa1 ${row.validISBN === false ? 'red' : ''}"
-          value="${str(row['isbn'])}" onchange=${handleISBNChange(row)}
+        <input id="isbn${book.id}" type="number" min="0"
+          class="bg-transparent pa1 ${book.validISBN === false ? 'red' : ''}"
+          value="${str(book['isbn'])}" onchange=${handleISBNChange(book)}
           onkeypress=${handleMaxDigits(13)}/>
       </td>
       <td>
-        <input class="bg-transparent pa1" id="author${row.id}"
+        <input class="bg-transparent pa1" id="author${book.id}"
           maxlength="140"
-          value="${str(row['author'])}"
-          onchange=${handleChange('author', row)}/>
+          value="${str(book['author'])}"
+          onchange=${handleChange('author', book)}/>
       </td>
       <td>
-        <input class="bg-transparent pa1" id="year${row.id}"
+        <input class="bg-transparent pa1" id="year${book.id}"
           type="number" min="0"
-          value="${str(row['year'])}" onchange=${handleChange('year', row)}
+          value="${str(book['year'])}" onchange=${handleChange('year', book)}
           onkeypress=${handleMaxDigits(4)}/>
       </td>
       <td>
-        <input class="bg-transparent pa1" id="title${row.id}"
+        <input class="bg-transparent pa1" id="title${book.id}"
           maxlength="140"
-          value="${str(row['title'])}" onchange=${handleChange('title', row)}/>
+          value="${str(book['title'])}" onchange=${handleChange('title', book)}/>
       </td>
       <td>
-        <input class="bg-transparent pa1" id="genre${row.id}"
-          list="genres" value="${str(row['genre'])}"
-          onchange=${handleListChange('genres', 'genre', row)}/>
+        <input class="bg-transparent pa1" id="genre${book.id}"
+          list="genres" value="${str(book['genre'])}"
+          onchange=${handleListChange('genres', 'genre', book)}/>
       </td>
       <td>
-        <input class="bg-transparent pa1" id="stock${row.id}" readonly
-          type="number" value="${str(row['stock'])}"/>
+        <input class="bg-transparent pa1" id="stock${book.id}" readonly
+          type="number" value="${str(book['stock'])}"/>
       </td>
       <td>
-        <input class="dim bg-transparent red pv1 ph2" id="delete${row.id}"
+        <input class="dim bg-transparent red pv1 ph2" id="delete${book.id}"
           type="button" value="✘" onclick=${handleDeleteClick}/>
       </td>
     </tr>`
@@ -53,28 +53,28 @@ function template (state, emit) {
     return x === undefined ? '' : x
   }
 
-  function emitNewRow (columnName, row, value) {
-    emit('rows:update', extend(row, {
+  function emitNewRow (columnName, book, value) {
+    emit('books:update', extend(book, {
       [columnName]: value
     }))
   }
 
-  function handleChange (columnName, row) {
+  function handleChange (columnName, book) {
     return function (event) {
       var value = event.target.value
-      emitNewRow(columnName, row, value)
+      emitNewRow(columnName, book, value)
     }
   }
 
-  function handleListChange (list, columnName, row) {
+  function handleListChange (list, columnName, book) {
     return function (event) {
       var value = event.target.value
 
       // Don't allow values that are not present on the drop down list
       if (state[list].indexOf(value) === -1) {
-        emitNewRow(columnName, row, undefined)
+        emitNewRow(columnName, book, undefined)
       } else {
-        emitNewRow(columnName, row, value)
+        emitNewRow(columnName, book, value)
       }
     }
   }
@@ -89,32 +89,32 @@ function template (state, emit) {
     }
   }
 
-  function handleISBNChange (row) {
+  function handleISBNChange (book) {
     return function (event) {
       var value = event.target.value
       var result = ISBN.parse(value)
 
       if (!result) {
-        row.validISBN = false
+        book.validISBN = false
       } else {
-        row.validISBN = result.isIsbn13() || result.isIsbn10()
+        book.validISBN = result.isIsbn13() || result.isIsbn10()
       }
 
-      handleChange('isbn', row)(event)
+      handleChange('isbn', book)(event)
     }
   }
 
   function handleDeleteClick (e) {
-    // Get row ID (number) from target's ID (string)
+    // Get book ID (number) from target's ID (string)
     var id = +e.target.id.replace('delete', '')
-    var row = state.rows.find(function (row) { return row.id === id })
+    var book = state.books.find(function (book) { return book.id === id })
 
-    // New rows just have one key (id)
-    var hasChanged = Object.keys(row).length > 1
+    // New books just have one key (id)
+    var hasChanged = Object.keys(book).length > 1
     var shouldDelete = !hasChanged || window.confirm('¿Eliminar este libro?')
 
     if (shouldDelete) {
-      emit('rows:delete', id)
+      emit('books:delete', id)
     }
   }
 }

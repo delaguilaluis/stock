@@ -1,6 +1,6 @@
 var css = require('sheetify')
 var choo = require('choo')
-var rows = require('./stores/rows')
+var books = require('./stores/books')
 
 css('tachyons')
 
@@ -13,7 +13,7 @@ if (process.env.NODE_ENV !== 'production') {
   // app.use(require('choo-service-worker')())
 }
 
-app.use(rows)
+app.use(books)
 
 app.route('/', require('./views/main'))
 app.route('/register/:type', require('./views/register'))

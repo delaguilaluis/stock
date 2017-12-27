@@ -37,6 +37,6 @@ function view (state, emit) {
   </body>`
 
   function handleClick () {
-    emit('rows:add')
+    emit('books:add')
   }
 }
