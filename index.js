@@ -16,6 +16,7 @@ if (process.env.NODE_ENV !== 'production') {
 app.use(rows)
 
 app.route('/', require('./views/main'))
+app.route('/register/:type', require('./views/register'))
 app.route('/*', require('./views/404'))
 
 if (!module.parent) app.mount('body')
