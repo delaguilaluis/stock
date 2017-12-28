@@ -8,46 +8,50 @@ var ISBN = window.ISBN
 module.exports = template
 
 function template (state, emit) {
-  return state.books.map(function (book) {
-    return html`<tr class="striped--near-white">
-      <td>
-        <input id="isbn${book.id}" type="number" min="0"
-          class="bg-transparent pa1 ${book.validISBN === false ? 'red' : ''}"
-          value="${str(book['isbn'])}" onchange=${handleISBNChange(book)}
-          onkeypress=${handleMaxDigits(13)}/>
-      </td>
-      <td>
-        <input class="bg-transparent pa1" id="author${book.id}"
-          maxlength="140"
-          value="${str(book['author'])}"
-          onchange=${handleChange('author', book)}/>
-      </td>
-      <td>
-        <input class="bg-transparent pa1" id="year${book.id}"
-          type="number" min="0"
-          value="${str(book['year'])}" onchange=${handleChange('year', book)}
-          onkeypress=${handleMaxDigits(4)}/>
-      </td>
-      <td>
-        <input class="bg-transparent pa1" id="title${book.id}"
-          maxlength="140"
-          value="${str(book['title'])}" onchange=${handleChange('title', book)}/>
-      </td>
-      <td>
-        <input class="bg-transparent pa1" id="genre${book.id}"
-          list="genres" value="${str(book['genre'])}"
-          onchange=${handleListChange('genres', 'genre', book)}/>
-      </td>
-      <td>
-        <input class="bg-transparent pa1" id="stock${book.id}" readonly
-          type="number" value="${str(book['stock'])}"/>
-      </td>
-      <td>
-        <input class="dim bg-transparent red pv1 ph2" id="delete${book.id}"
-          type="button" value="✘" onclick=${handleDeleteClick}/>
-      </td>
-    </tr>`
-  })
+  return state.books.map(row)
+
+  function row (book) {
+    return html`
+      <tr class="striped--near-white">
+        <td>
+          <input id="isbn${book.id}" type="number" min="0"
+            class="bg-transparent pa1 ${book.validISBN === false ? 'red' : ''}"
+            value="${str(book['isbn'])}" onchange=${handleISBNChange(book)}
+            onkeypress=${handleMaxDigits(13)}/>
+        </td>
+        <td>
+          <input class="bg-transparent pa1" id="author${book.id}"
+            maxlength="140"
+            value="${str(book['author'])}"
+            onchange=${handleChange('author', book)}/>
+        </td>
+        <td>
+          <input class="bg-transparent pa1" id="year${book.id}"
+            type="number" min="0"
+            value="${str(book['year'])}" onchange=${handleChange('year', book)}
+            onkeypress=${handleMaxDigits(4)}/>
+        </td>
+        <td>
+          <input class="bg-transparent pa1" id="title${book.id}"
+            maxlength="140" value="${str(book['title'])}"
+            onchange=${handleChange('title', book)}/>
+        </td>
+        <td>
+          <input class="bg-transparent pa1" id="genre${book.id}"
+            list="genres" value="${str(book['genre'])}"
+            onchange=${handleListChange('genres', 'genre', book)}/>
+        </td>
+        <td>
+          <input class="bg-transparent pa1" id="stock${book.id}" readonly
+            type="number" value="${str(book['stock'])}"/>
+        </td>
+        <td>
+          <input class="dim bg-transparent red pv1 ph2" id="delete${book.id}"
+            type="button" value="✘" onclick=${handleDeleteClick}/>
+        </td>
+      </tr>
+    `
+  }
 
   function str (x) {
     return x === undefined ? '' : x

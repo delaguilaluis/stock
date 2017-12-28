@@ -12,27 +12,29 @@ module.exports = view
 function view (state, emit) {
   if (state.title !== TITLE) emit(state.events.DOMTITLECHANGE, TITLE)
 
-  return html`<body class="sans-serif">
-    ${nav(state, emit)}
-    ${button('+', handleClick)}
+  return html`
+    <body class="sans-serif">
+      ${nav(state, emit)}
+      ${button('+', handleClick)}
 
-    <table class="collapse ba br2 b--black-10 pv2 ph3 mv2 mh4">
-      <tbody>
-        <tr class="striped--near-white">
-          ${tableHeader('ISBN')}
-          ${tableHeader('Autor')}
-          ${tableHeader('Año')}
-          ${tableHeader('Título')}
-          ${tableHeader('Género')}
-          ${tableHeader('Existencias')}
-          ${tableHeader('')}
-        </tr>
-        ${rows(state, emit)}
-      </tbody>
-    </table>
+      <table class="collapse ba br2 b--black-10 pv2 ph3 mv2 mh4">
+        <tbody>
+          <tr class="striped--near-white">
+            ${tableHeader('ISBN')}
+            ${tableHeader('Autor')}
+            ${tableHeader('Año')}
+            ${tableHeader('Título')}
+            ${tableHeader('Género')}
+            ${tableHeader('Existencias')}
+            ${tableHeader('')}
+          </tr>
+          ${rows(state, emit)}
+        </tbody>
+      </table>
 
-    ${datalist('genres', state.genres)}
-  </body>`
+      ${datalist('genres', state.genres)}
+    </body>
+  `
 
   function handleClick () {
     emit('books:add')
