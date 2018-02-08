@@ -1,5 +1,5 @@
-# inventory
-A very cute app
+# stock
+Stock management application
 
 ## Routes
 Route              | File               | Description                     |

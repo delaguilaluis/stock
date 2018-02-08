@@ -1,5 +1,6 @@
 {
-  "name": "inventory",
+  "name": "stock",
+  "description": "Stock management application",
   "version": "1.0.0",
   "private": true,
   "scripts": {
@@ -24,5 +25,6 @@
     "choo-scaffold": "^1.1.2",
     "dependency-check": "^2.9.1",
     "standard": "^10.0.3"
-  }
+  },
+  "license": "ISC"
 }
